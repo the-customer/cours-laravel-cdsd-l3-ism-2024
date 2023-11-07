@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,32 +19,9 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 //
-Route::get('/articles',function(){
-    $articles = [
-        [
-            "id" => uniqid(),
-            "titre" => Str::random(10),
-            "description"   => Str::random(50),
-            "published" => rand(0,1),
-        ],
-        [
-            "id" => uniqid(),
-            "titre" => Str::random(10),
-            "description"   => Str::random(50),
-            "published" => rand(0,1),
-        ],
-        [
-            "id" => uniqid(),
-            "titre" => Str::random(10),
-            "description"   => Str::random(50),
-            "published" => rand(0,1),
-        ]   
-    ];
-    // return view('articles',[
-    //     "articles" => $articles
-    // ]);
-    return view("articles.index", compact("articles"));
+Route::get('/articles',[ArticleController::class,"index"])->name("articles.index");
+Route::get("/articles/{id}",[ArticleController::class,"show"])->name("articles.show");
+//
+Route::get("/login",[AuthController::class,"login"])->name("login");
+Route::post("/login",[AuthController::class,"connexion"])->name("connexion");
 
-
-    // compact("articles"); => ["articles"=>$articles]
-});

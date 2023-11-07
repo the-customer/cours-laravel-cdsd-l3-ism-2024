@@ -1,22 +1,20 @@
 <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Fixed navbar</a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark px-5">
+      <a class="navbar-brand" href="/">BrEukH.Blog</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link" href="{{ route("articles.index") }}">Articles</a>
           </li>
         </ul>
+          <a class="float-right text-danger" href="{{ route("login") }}"><i class="fa-solid fa-power-off fa-2x"></i></a>
       </div>
     </nav>
   </header>
