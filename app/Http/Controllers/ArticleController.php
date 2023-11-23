@@ -2,23 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
+use DB;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function test(){
-        return "Test";
+    //
+    public function create()
+    {
+        return view("articles.create");
+    }
+    //
+    public function store(ArticleRequest $request)
+    {
+        // $titre = $request->titre;
+        // $titre = $request->get('titre');
+        // $titre = $request->only('titre');
+        $data = $request->only(['titre','description','image']);
+        
+        return DB::table('articles')
+            ->insert($data);
     }
     //
     public function index(){
-        $articles = $this->getAllArticles();
+        $articles = DB::table('articles')->get();
         return view("articles.index", compact("articles"));
     }
 
     public function show($id)
     {
-        $article = $this->getArticleById($id);
+        $article = DB::table('articles')->find($id);
+        // $article = DB::table('articles')
+        //     ->where('id',$id)->first();
         return view('articles.show',compact("article"));
+    }
+
+    public function edit($id)
+    {
+        $article = DB::table('articles')->find($id);
+        return view('articles.edit',compact('article'));
+    }
+
+    public function update(ArticleRequest $request, $id)
+    {
+        return DB::table('articles')
+            ->where('id',$id)
+            ->update($request->only(['titre','description','image']));
+    }
+
+    public function delete($id)
+    {
+        return DB::table('articles')
+                ->where('id',$id)
+                ->delete();
+            //OU BIEN
+    //     return DB::table('articles')
+    //             ->delete($id);
     }
 
 

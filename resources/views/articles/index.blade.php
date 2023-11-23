@@ -1,7 +1,7 @@
 @extends("layouts.base")
 
 @section("content")
-   <h1>Les articles <a href="#" class="btn btn-sm btn-success">+</a></h1>
+   <h1>Les articles <a href="{{ route('articles.create') }}" class="btn btn-sm btn-success">+</a></h1>
    {{--
    @for ($i = 0; $i < count($articles); $i++)
       <h3>{{ $articles[$i]["titre"] }}</h3>
@@ -22,14 +22,16 @@
       <tbody>
          @foreach ($articles as $article)
             <tr>
-               <td class="col">{{ $article["id"] }}</td>
-               <td class="col">{{ $article["titre"] }}</td>
-               <td class="col">{{ $article["description"] }}</td>
+               <td class="col">{{ $article->id }}</td>
+               <td class="col">{{ $article->titre }}</td>
+               <td class="col">{{ $article->description }}</td>
                <td class="col">
-                  <span class="bg-{{ $article["published"] == 1 ? 'success' : 'danger' }} p-1">{{ $article["published"] == 1 ? "OUI" : "NON" }}</span>
+                  <span class="bg-{{ $article->etat == 1 ? 'success' : 'danger' }} p-1">{{ $article->etat == 1 ? "OUI" : "NON" }}</span>
                </td>
                <td class="col">
-                  <a href="{{ route("articles.show",$article["id"]) }}" class="btn btn-sm btn-outline-info">Detail</a>
+                  <a href="{{ route("articles.show",$article->id) }}" class="btn btn-sm btn-outline-info">Detail</a>
+                  <a href="{{ route("articles.edit",$article->id) }}" class="btn btn-sm btn-outline-warning">Edit</a>
+                  <a href="{{ route("articles.delete",$article->id) }}" class="btn btn-sm btn-outline-danger">Delete</a>
                </td>
             </tr>
          @endforeach

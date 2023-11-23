@@ -13,6 +13,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route("articles.index") }}">Articles</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route("categories.index") }}">Categories</a>
+          </li>
         </ul>
           <a class="float-right text-danger" href="{{ route("login") }}"><i class="fa-solid fa-power-off fa-2x"></i></a>
       </div>
