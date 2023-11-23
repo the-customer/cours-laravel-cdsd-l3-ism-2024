@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
+use App\Models\Article;
+use App\Models\MyArticle;
 use DB;
 use Illuminate\Http\Request;
 
@@ -16,49 +18,58 @@ class ArticleController extends Controller
     //
     public function store(ArticleRequest $request)
     {
-        // $titre = $request->titre;
-        // $titre = $request->get('titre');
-        // $titre = $request->only('titre');
+        // $newArticle = new Article();
+        // $newArticle->titre = $request->titre;
+        // $newArticle->description = $request->description;
+        // $newArticle->image = $request->image;
+        // $newArticle->save();
+
+        //OU bien
+
         $data = $request->only(['titre','description','image']);
         
-        return DB::table('articles')
-            ->insert($data);
+        return Article::create($data);
     }
     //
     public function index(){
-        $articles = DB::table('articles')->get();
+        $articles = Article::all();
         return view("articles.index", compact("articles"));
     }
 
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $article = Article::find($id);
+    //     return view('articles.show',compact("article"));
+    // }
+
+    // public function show(Article $id)
+    // {
+    //     $article = $id;
+    //     return view('articles.show',compact("article"));
+    // }
+
+    public function show(Article $article)
     {
-        $article = DB::table('articles')->find($id);
-        // $article = DB::table('articles')
-        //     ->where('id',$id)->first();
         return view('articles.show',compact("article"));
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = DB::table('articles')->find($id);
         return view('articles.edit',compact('article'));
     }
 
-    public function update(ArticleRequest $request, $id)
+    public function update(ArticleRequest $request, Article $id)
     {
-        return DB::table('articles')
-            ->where('id',$id)
-            ->update($request->only(['titre','description','image']));
+        $id->titre = $request->titre;
+        $id->description = $request->description;
+        $id->image = $request->image;
+        $id->save();
+        return $id;
     }
 
     public function delete($id)
     {
-        return DB::table('articles')
-                ->where('id',$id)
-                ->delete();
-            //OU BIEN
-    //     return DB::table('articles')
-    //             ->delete($id);
+        return Article::find($id)->delete();
     }
 
 

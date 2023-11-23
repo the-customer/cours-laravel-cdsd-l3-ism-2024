@@ -16,7 +16,9 @@
             <th class="col">Titre</th>
             <th class="col">Desctiption</th>
             <th class="col">Publié</th>
-            <th class="col">Actions</th>
+            <th class="col">
+               <a href="#" class="btn btn-sm btn-outline-danger">Corbeille</a>
+            </th>
          </tr>
       </thead>
       <tbody>
